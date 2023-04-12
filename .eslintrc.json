@@ -4,6 +4,8 @@
       "airbnb-typescript",
       "plugin:react/recommended",
       "plugin:@typescript-eslint/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings",
       "plugin:prettier/recommended"
     ],
     "parserOptions": {
@@ -17,7 +19,8 @@
       "@typescript-eslint/no-empty-interface": "off",
       "no-use-before-define": "off",
       "@typescript-eslint/no-use-before-define": ["error"],
-      "prettier/prettier": ["error", { "endOfLine": "auto" }]
+      "prettier/prettier": ["error", { "endOfLine": "auto" }],
+      "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx", "src/setupTests.ts"]}]
     },
     "settings": {
       "react": {

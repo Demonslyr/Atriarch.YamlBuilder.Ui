@@ -8,7 +8,7 @@ import ConfigMapForm from './components/ConfigMapForm';
 import ArbitraryYamlForm from './components/ArbitraryYamlForm';
 import ServiceForm from './components/ServiceForm';
 import { Button } from 'react-bootstrap';
-import jsYaml from 'js-yaml';
+import { dump } from 'js-yaml';
 import { saveAs } from 'file-saver';
 
 interface FormData {
@@ -41,9 +41,9 @@ function App() {
   const generateYaml = () => {
     let yaml = '';
 
-    Object.entries(formData).forEach(([key, data]) => {
+    Object.entries(formData).forEach(([data]) => {
       if (data) {
-        yaml += jsYaml.dump(data, { indent: 2 }) + '---\n';
+        yaml += dump(data, { indent: 2 }) + '---\n';
       }
     });
 

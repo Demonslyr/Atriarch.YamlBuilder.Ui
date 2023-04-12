@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Col } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 interface HpaInput {
   hpaName: string;
