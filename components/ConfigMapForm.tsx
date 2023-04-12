@@ -7,10 +7,7 @@ interface ConfigMapData {
 }
 
 interface Props {
-  onUpdate: (config: {
-    configMapName: string;
-    configMapData: ConfigMapData[];
-  }) => void;
+  onUpdate: (config: { configMapName: string; configMapData: ConfigMapData[] }) => void;
 }
 
 const ConfigMapForm: React.FC<Props> = ({ onUpdate }) => {

@@ -37,7 +37,10 @@ const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
 
   const handleAddLabel = () => {
     if (deploymentLabelKey && deploymentLabelValue) {
-      setDeploymentLabels((prevLabels) => ({ ...prevLabels, [deploymentLabelKey]: deploymentLabelValue }));
+      setDeploymentLabels((prevLabels) => ({
+        ...prevLabels,
+        [deploymentLabelKey]: deploymentLabelValue,
+      }));
       setDeploymentLabelKey('');
       setDeploymentLabelValue('');
     }
@@ -81,7 +84,9 @@ const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
             </Col>
           </Row>
           {Object.entries(deploymentLabels).map(([key, value]) => (
-            <div key={key}>{key}: {value}</div>
+            <div key={key}>
+              {key}: {value}
+            </div>
           ))}
         </Form.Group>
 

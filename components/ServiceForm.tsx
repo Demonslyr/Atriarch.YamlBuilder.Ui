@@ -131,11 +131,7 @@ const ServiceForm: React.FC<Props> = ({ onUpdate }) => {
           />
         </Col>
         <Col sm={3}>
-          <Form.Control
-            as="select"
-            value={protocol}
-            onChange={(e) => setProtocol(e.target.value)}
-          >
+          <Form.Control as="select" value={protocol} onChange={(e) => setProtocol(e.target.value)}>
             <option>TCP</option>
             <option>UDP</option>
             <option>SCTP</option>
