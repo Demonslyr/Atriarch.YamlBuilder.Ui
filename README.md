@@ -5,7 +5,7 @@ K8s YAML Generator is a React application that simplifies the process of creatin
 ## Project Structure
 
 The project is organized as follows:
-
+```
 src/
 ├── components/
 │ ├── ArbitraryYamlForm.tsx
@@ -23,7 +23,7 @@ src/
 ├── react-app-env.d.ts
 ├── reportWebVitals.ts
 └── setupTests.ts
-
+```
 
 - `src/components/`: Contains the individual form components for each Kubernetes resource.
 - `src/App.tsx`: Main application file that brings all components together and generates the final YAML configuration.
