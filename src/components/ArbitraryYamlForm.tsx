@@ -24,7 +24,7 @@ const ArbitraryYamlForm: React.FC<Props> = ({ onUpdate }) => {
             rows={8}
             placeholder="Enter arbitrary YAML"
             value={yaml}
-            onChange={(e) => setYaml(e.target.value)}
+            onChange={e => setYaml(e.target.value)}
           />
         </Col>
       </Form.Group>

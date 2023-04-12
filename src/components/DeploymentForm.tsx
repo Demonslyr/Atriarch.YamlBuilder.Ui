@@ -37,7 +37,7 @@ const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
 
   const handleAddLabel = () => {
     if (deploymentLabelKey && deploymentLabelValue) {
-      setDeploymentLabels((prevLabels) => ({
+      setDeploymentLabels(prevLabels => ({
         ...prevLabels,
         [deploymentLabelKey]: deploymentLabelValue,
       }));
@@ -56,7 +56,7 @@ const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
             type="text"
             placeholder="Enter deployment name"
             value={deploymentName}
-            onChange={(e) => setDeploymentName(e.target.value)}
+            onChange={e => setDeploymentName(e.target.value)}
           />
         </Form.Group>
 
@@ -68,7 +68,7 @@ const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
                 type="text"
                 placeholder="Key"
                 value={deploymentLabelKey}
-                onChange={(e) => setDeploymentLabelKey(e.target.value)}
+                onChange={e => setDeploymentLabelKey(e.target.value)}
               />
             </Col>
             <Col>
@@ -76,7 +76,7 @@ const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
                 type="text"
                 placeholder="Value"
                 value={deploymentLabelValue}
-                onChange={(e) => setDeploymentLabelValue(e.target.value)}
+                onChange={e => setDeploymentLabelValue(e.target.value)}
               />
             </Col>
             <Col>
@@ -95,7 +95,7 @@ const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
           <Form.Control
             type="number"
             value={replicaCount}
-            onChange={(e) => setReplicaCount(Number(e.target.value))}
+            onChange={e => setReplicaCount(Number(e.target.value))}
           />
         </Form.Group>
 
@@ -105,7 +105,7 @@ const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
             type="text"
             placeholder="Enter container name"
             value={containerName}
-            onChange={(e) => setContainerName(e.target.value)}
+            onChange={e => setContainerName(e.target.value)}
           />
         </Form.Group>
 
@@ -115,7 +115,7 @@ const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
             type="text"
             placeholder="Enter image name"
             value={imageName}
-            onChange={(e) => setImageName(e.target.value)}
+            onChange={e => setImageName(e.target.value)}
           />
         </Form.Group>
 
@@ -124,7 +124,7 @@ const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
           <Form.Control
             type="number"
             value={containerPort}
-            onChange={(e) => setContainerPort(Number(e.target.value))}
+            onChange={e => setContainerPort(Number(e.target.value))}
           />
         </Form.Group>
       </Form>

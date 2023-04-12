@@ -34,7 +34,7 @@ const IngressForm: React.FC<IngressFormProps> = ({ onUpdate }) => {
 
   const handleAddRule = () => {
     if (host && path && serviceName && servicePort) {
-      setIngressRules((prevRules) => [
+      setIngressRules(prevRules => [
         ...prevRules,
         {
           host,
@@ -60,7 +60,7 @@ const IngressForm: React.FC<IngressFormProps> = ({ onUpdate }) => {
             type="text"
             placeholder="Enter ingress name"
             value={ingressName}
-            onChange={(e) => setIngressName(e.target.value)}
+            onChange={e => setIngressName(e.target.value)}
           />
         </Form.Group>
 
@@ -72,7 +72,7 @@ const IngressForm: React.FC<IngressFormProps> = ({ onUpdate }) => {
                 type="text"
                 placeholder="Host"
                 value={host}
-                onChange={(e) => setHost(e.target.value)}
+                onChange={e => setHost(e.target.value)}
               />
             </Col>
             <Col>
@@ -80,7 +80,7 @@ const IngressForm: React.FC<IngressFormProps> = ({ onUpdate }) => {
                 type="text"
                 placeholder="Path"
                 value={path}
-                onChange={(e) => setPath(e.target.value)}
+                onChange={e => setPath(e.target.value)}
               />
             </Col>
             <Col>
@@ -88,7 +88,7 @@ const IngressForm: React.FC<IngressFormProps> = ({ onUpdate }) => {
                 type="text"
                 placeholder="Service Name"
                 value={serviceName}
-                onChange={(e) => setServiceName(e.target.value)}
+                onChange={e => setServiceName(e.target.value)}
               />
             </Col>
             <Col>
@@ -96,7 +96,7 @@ const IngressForm: React.FC<IngressFormProps> = ({ onUpdate }) => {
                 type="text"
                 placeholder="Service Port"
                 value={servicePort}
-                onChange={(e) => setServicePort(e.target.value)}
+                onChange={e => setServicePort(e.target.value)}
               />
             </Col>
             <Col>

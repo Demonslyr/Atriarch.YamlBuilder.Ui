@@ -37,7 +37,7 @@ const ConfigMapForm: React.FC<Props> = ({ onUpdate }) => {
             type="text"
             placeholder="Enter ConfigMap name"
             value={configMapName}
-            onChange={(e) => setConfigMapName(e.target.value)}
+            onChange={e => setConfigMapName(e.target.value)}
           />
         </Col>
       </Form.Group>
@@ -50,7 +50,7 @@ const ConfigMapForm: React.FC<Props> = ({ onUpdate }) => {
             type="text"
             placeholder="Key"
             value={key}
-            onChange={(e) => setKey(e.target.value)}
+            onChange={e => setKey(e.target.value)}
           />
         </Col>
         <Col sm={4}>
@@ -58,7 +58,7 @@ const ConfigMapForm: React.FC<Props> = ({ onUpdate }) => {
             type="text"
             placeholder="Value"
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={e => setValue(e.target.value)}
           />
         </Col>
         <Col sm={2}>

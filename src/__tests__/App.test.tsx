@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import App from '../src/App';
+import App from '../App';
 
 describe('App', () => {
   beforeEach(() => {
@@ -26,7 +26,9 @@ describe('App', () => {
     document.body.appendChild(downloadLink);
 
     const clickSpy = jest.spyOn(downloadLink, 'click');
-    const createElementSpy = jest.spyOn(document, 'createElement').mockImplementation(() => downloadLink);
+    const createElementSpy = jest
+      .spyOn(document, 'createElement')
+      .mockImplementation(() => downloadLink);
 
     fireEvent.click(screen.getByText(/generate yaml/i));
 

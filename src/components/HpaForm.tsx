@@ -37,7 +37,7 @@ const HpaForm: React.FC<HpaFormProps> = ({ onUpdate }) => {
             type="text"
             placeholder="Enter HPA name"
             value={hpaName}
-            onChange={(e) => setHpaName(e.target.value)}
+            onChange={e => setHpaName(e.target.value)}
           />
         </Form.Group>
 
@@ -47,7 +47,7 @@ const HpaForm: React.FC<HpaFormProps> = ({ onUpdate }) => {
             type="number"
             min="1"
             value={minReplicas}
-            onChange={(e) => setMinReplicas(Number(e.target.value))}
+            onChange={e => setMinReplicas(Number(e.target.value))}
           />
         </Form.Group>
 
@@ -57,7 +57,7 @@ const HpaForm: React.FC<HpaFormProps> = ({ onUpdate }) => {
             type="number"
             min="1"
             value={maxReplicas}
-            onChange={(e) => setMaxReplicas(Number(e.target.value))}
+            onChange={e => setMaxReplicas(Number(e.target.value))}
           />
         </Form.Group>
 
@@ -68,7 +68,7 @@ const HpaForm: React.FC<HpaFormProps> = ({ onUpdate }) => {
             min="0"
             max="100"
             value={targetCPUUtilizationPercentage}
-            onChange={(e) => setTargetCPUUtilizationPercentage(Number(e.target.value))}
+            onChange={e => setTargetCPUUtilizationPercentage(Number(e.target.value))}
           />
         </Form.Group>
       </Form>

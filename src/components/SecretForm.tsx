@@ -30,7 +30,7 @@ const SecretForm: React.FC<SecretFormProps> = ({ onUpdate }) => {
 
   const handleAddData = () => {
     if (key && value) {
-      setSecretData((prevData) => [
+      setSecretData(prevData => [
         ...prevData,
         {
           key,
@@ -52,7 +52,7 @@ const SecretForm: React.FC<SecretFormProps> = ({ onUpdate }) => {
             type="text"
             placeholder="Enter secret name"
             value={secretName}
-            onChange={(e) => setSecretName(e.target.value)}
+            onChange={e => setSecretName(e.target.value)}
           />
         </Form.Group>
 
@@ -64,7 +64,7 @@ const SecretForm: React.FC<SecretFormProps> = ({ onUpdate }) => {
                 type="text"
                 placeholder="Key"
                 value={key}
-                onChange={(e) => setKey(e.target.value)}
+                onChange={e => setKey(e.target.value)}
               />
             </Col>
             <Col>
@@ -72,7 +72,7 @@ const SecretForm: React.FC<SecretFormProps> = ({ onUpdate }) => {
                 type="text"
                 placeholder="Value"
                 value={value}
-                onChange={(e) => setValue(e.target.value)}
+                onChange={e => setValue(e.target.value)}
               />
             </Col>
             <Col>

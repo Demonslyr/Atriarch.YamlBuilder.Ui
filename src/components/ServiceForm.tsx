@@ -56,7 +56,7 @@ const ServiceForm: React.FC<Props> = ({ onUpdate }) => {
             type="text"
             placeholder="Enter service name"
             value={serviceName}
-            onChange={(e) => setServiceName(e.target.value)}
+            onChange={e => setServiceName(e.target.value)}
           />
         </Col>
       </Form.Group>
@@ -68,7 +68,7 @@ const ServiceForm: React.FC<Props> = ({ onUpdate }) => {
           <Form.Control
             as="select"
             value={serviceType}
-            onChange={(e) => setServiceType(e.target.value)}
+            onChange={e => setServiceType(e.target.value)}
           >
             <option>ClusterIP</option>
             <option>NodePort</option>
@@ -86,7 +86,7 @@ const ServiceForm: React.FC<Props> = ({ onUpdate }) => {
             type="text"
             placeholder="Key"
             value={selectorKey}
-            onChange={(e) => setSelectorKey(e.target.value)}
+            onChange={e => setSelectorKey(e.target.value)}
           />
         </Col>
         <Col sm={4}>
@@ -94,7 +94,7 @@ const ServiceForm: React.FC<Props> = ({ onUpdate }) => {
             type="text"
             placeholder="Value"
             value={selectorValue}
-            onChange={(e) => setSelectorValue(e.target.value)}
+            onChange={e => setSelectorValue(e.target.value)}
           />
         </Col>
         <Col sm={2}>
@@ -119,7 +119,7 @@ const ServiceForm: React.FC<Props> = ({ onUpdate }) => {
             type="number"
             placeholder="Port"
             value={port}
-            onChange={(e) => setPort(e.target.value)}
+            onChange={e => setPort(e.target.value)}
           />
         </Col>
         <Col sm={3}>
@@ -127,11 +127,11 @@ const ServiceForm: React.FC<Props> = ({ onUpdate }) => {
             type="number"
             placeholder="Target Port"
             value={targetPort}
-            onChange={(e) => setTargetPort(e.target.value)}
+            onChange={e => setTargetPort(e.target.value)}
           />
         </Col>
         <Col sm={3}>
-          <Form.Control as="select" value={protocol} onChange={(e) => setProtocol(e.target.value)}>
+          <Form.Control as="select" value={protocol} onChange={e => setProtocol(e.target.value)}>
             <option>TCP</option>
             <option>UDP</option>
             <option>SCTP</option>
