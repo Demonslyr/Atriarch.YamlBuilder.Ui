@@ -1,135 +1,148 @@
-import React, { useState } from 'react';
-import { Button, Form, Row, Col } from 'react-bootstrap';
-import styles from './DeploymentForm.module.css';
-
-interface DeploymentInput {
-  deploymentName: string;
-  deploymentLabels: Record<string, string>;
-  replicaCount: number;
-  containerName: string;
-  imageName: string;
-  containerPort: number;
-}
+import React, { useState, useEffect } from 'react';
+import { Form, Row, Col, Card, Button } from 'react-bootstrap';
+import './DeploymentForm.css';
 
 interface DeploymentFormProps {
-  onUpdate: (input: DeploymentInput) => void;
+  onUpdate: (data: object) => void;
 }
 
 const DeploymentForm: React.FC<DeploymentFormProps> = ({ onUpdate }) => {
-  const [deploymentName, setDeploymentName] = useState('');
-  const [deploymentLabelKey, setDeploymentLabelKey] = useState('');
-  const [deploymentLabelValue, setDeploymentLabelValue] = useState('');
-  const [replicaCount, setReplicaCount] = useState(1);
-  const [containerName, setContainerName] = useState('');
-  const [imageName, setImageName] = useState('');
-  const [containerPort, setContainerPort] = useState(80);
-  const [deploymentLabels, setDeploymentLabels] = useState<Record<string, string>>({});
+  const [name, setName] = useState('');
+  const [replicas, setReplicas] = useState('');
+  const [image, setImage] = useState('');
+  const [env, setEnv] = useState('');
+  const [volume, setVolume] = useState('');
+  const [resourceLimits, setResourceLimits] = useState('');
+  const [imagePullSecrets, setImagePullSecrets] = useState('');
 
-  const handleSubmit = () => {
+  const handleUpdate = () => {
     onUpdate({
-      deploymentName,
-      deploymentLabels,
-      replicaCount,
-      containerName,
-      imageName,
-      containerPort,
+      kind: 'Deployment',
+      apiVersion: 'apps/v1',
+      metadata: {
+        name,
+      },
+      spec: {
+        replicas: parseInt(replicas),
+        template: {
+          spec: {
+            containers: [
+              {
+                name,
+                image,
+              },
+            ],
+          },
+        },
+      },
     });
   };
 
-  const handleAddLabel = () => {
-    if (deploymentLabelKey && deploymentLabelValue) {
-      setDeploymentLabels(prevLabels => ({
-        ...prevLabels,
-        [deploymentLabelKey]: deploymentLabelValue,
-      }));
-      setDeploymentLabelKey('');
-      setDeploymentLabelValue('');
-    }
-  };
+  useEffect(() => {
+    handleUpdate();
+  }, [name, replicas, image, env, volume, resourceLimits, imagePullSecrets]);
 
   return (
-    <div>
-      <h2>Deployment</h2>
-      <Form>
-        <Form.Group controlId="deploymentName">
-          <Form.Label>Deployment Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter deployment name"
-            value={deploymentName}
-            onChange={e => setDeploymentName(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label>Labels</Form.Label>
-          <Row>
-            <Col>
-              <Form.Control
-                type="text"
-                placeholder="Key"
-                value={deploymentLabelKey}
-                onChange={e => setDeploymentLabelKey(e.target.value)}
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                type="text"
-                placeholder="Value"
-                value={deploymentLabelValue}
-                onChange={e => setDeploymentLabelValue(e.target.value)}
-              />
-            </Col>
-            <Col>
-              <Button onClick={handleAddLabel}>Add Label</Button>
-            </Col>
-          </Row>
-          {Object.entries(deploymentLabels).map(([key, value]) => (
-            <div key={key}>
-              {key}: {value}
-            </div>
-          ))}
-        </Form.Group>
-
-        <Form.Group controlId="replicaCount">
-          <Form.Label>Replica Count</Form.Label>
-          <Form.Control
-            type="number"
-            value={replicaCount}
-            onChange={e => setReplicaCount(Number(e.target.value))}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="containerName">
-          <Form.Label>Container Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter container name"
-            value={containerName}
-            onChange={e => setContainerName(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="imageName">
-          <Form.Label>Image Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter image name"
-            value={imageName}
-            onChange={e => setImageName(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="containerPort">
-          <Form.Label>Container Port</Form.Label>
-          <Form.Control
-            type="number"
-            value={containerPort}
-            onChange={e => setContainerPort(Number(e.target.value))}
-          />
-        </Form.Group>
-      </Form>
-      <Button onClick={handleSubmit}>Update Deployment</Button>
+    <div className="deployment-form">
+      <Card className="mb-4 shadow-sm">
+        <Card.Body>
+          <Card.Title>Deployment</Card.Title>
+          <Form>
+            <Row>
+              <Form.Group as={Col} controlId="formDeploymentName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  className="form-control-light"
+                  type="text"
+                  placeholder="Enter deployment name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  onBlur={handleUpdate}
+                />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formDeploymentReplicas">
+                <Form.Label>Replicas</Form.Label>
+                <Form.Control
+                  className="form-control-light"
+                  type="number"
+                  min="1"
+                  placeholder="Enter number of replicas"
+                  value={replicas}
+                  onChange={e => setReplicas(e.target.value)}
+                  onBlur={handleUpdate}
+                />
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group as={Col} controlId="formDeploymentImage">
+                <Form.Label>Image</Form.Label>
+                <Form.Control
+                  className="form-control-light"
+                  type="text"
+                  placeholder="Enter container image"
+                  value={image}
+                  onChange={e => setImage(e.target.value)}
+                  onBlur={handleUpdate}
+                />
+              </Form.Group>
+            </Row>
+            {/* Add environment variables, volumes, resource limits and requests, and imagePullSecrets fields */}
+            <Row>
+              <Form.Group as={Col} controlId="formDeploymentEnv">
+                <Form.Label>Environment Variables</Form.Label>
+                <Form.Control
+                  className="form-control-light"
+                  type="text"
+                  placeholder="Enter environment variables"
+                  value={env}
+                  onChange={e => setEnv(e.target.value)}
+                  onBlur={handleUpdate}
+                />
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group as={Col} controlId="formDeploymentVolume">
+                <Form.Label>Volumes</Form.Label>
+                <Form.Control
+                  className="form
+                  control-light"
+                  type="text"
+                  placeholder="Enter volumes"
+                  value={volume}
+                  onChange={e => setVolume(e.target.value)}
+                  onBlur={handleUpdate}
+                />
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group as={Col} controlId="formDeploymentResourceLimits">
+                <Form.Label>Resource Limits and Requests</Form.Label>
+                <Form.Control
+                  className="form-control-light"
+                  type="text"
+                  placeholder="Enter resource limits and requests"
+                  value={resourceLimits}
+                  onChange={e => setResourceLimits(e.target.value)}
+                  onBlur={handleUpdate}
+                />
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group as={Col} controlId="formDeploymentImagePullSecrets">
+                <Form.Label>Image Pull Secrets</Form.Label>
+                <Form.Control
+                  className="form-control-light"
+                  type="text"
+                  placeholder="Enter image pull secrets"
+                  value={imagePullSecrets}
+                  onChange={e => setImagePullSecrets(e.target.value)}
+                  onBlur={handleUpdate}
+                />
+              </Form.Group>
+            </Row>
+          </Form>
+        </Card.Body>
+      </Card>
     </div>
   );
 };
