@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button, Container, Form } from 'react-bootstrap';
+import styles from './App.module.css';
 import './App.css';
 import DeploymentForm from './components/DeploymentForm';
 import HpaForm from './components/HpaForm';
@@ -7,7 +9,6 @@ import SecretForm from './components/SecretForm';
 import ConfigMapForm from './components/ConfigMapForm';
 import ArbitraryYamlForm from './components/ArbitraryYamlForm';
 import ServiceForm from './components/ServiceForm';
-import { Button } from 'react-bootstrap';
 import { dump } from 'js-yaml';
 import { saveAs } from 'file-saver';
 
@@ -52,25 +53,31 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>K8s YAML Generator</h1>
-      <DeploymentForm onUpdate={handleUpdate('deployment')} />
-      <hr />
-      <HpaForm onUpdate={handleUpdate('hpa')} />
-      <hr />
-      <IngressForm onUpdate={handleUpdate('ingress')} />
-      <hr />
-      <SecretForm onUpdate={handleUpdate('secret')} />
-      <hr />
-      <ConfigMapForm onUpdate={handleUpdate('configMap')} />
-      <hr />
-      <ArbitraryYamlForm onUpdate={handleUpdate('arbitraryYaml')} />
-      <hr />
-      <ServiceForm onUpdate={handleUpdate('service')} />
-      <hr />
-      <Button variant="success" onClick={generateYaml}>
-        Generate YAML
-      </Button>
+    <div
+      className={`vh-100 d-flex justify-content-center align-items-center ${styles.appBackground}`}
+    >
+      <Container className={`bg-dark p-3 ${styles.container}`}>
+        <h1 className="text-white mb-4">K8s YAML Generator</h1>
+        <Form>
+          <DeploymentForm onUpdate={handleUpdate('deployment')} />
+          <hr />
+          <HpaForm onUpdate={handleUpdate('hpa')} />
+          <hr />
+          <IngressForm onUpdate={handleUpdate('ingress')} />
+          <hr />
+          <SecretForm onUpdate={handleUpdate('secret')} />
+          <hr />
+          <ConfigMapForm onUpdate={handleUpdate('configMap')} />
+          <hr />
+          <ArbitraryYamlForm onUpdate={handleUpdate('arbitraryYaml')} />
+          <hr />
+          <ServiceForm onUpdate={handleUpdate('service')} />
+          <hr />
+        </Form>
+        <Button variant="success" onClick={generateYaml}>
+          Generate YAML
+        </Button>
+      </Container>
     </div>
   );
 }

@@ -1,0 +1,15 @@
+.formControl {
+    background-color: #222;
+    color: #fff;
+    border-color: #888;
+  }
+  
+  .formControl:focus {
+    border-color: #5cb85c;
+    box-shadow: none;
+  }
+  
+  .formCheckInput {
+    border-color: #888;
+  }
+  
