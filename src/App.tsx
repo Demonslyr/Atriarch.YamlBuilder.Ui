@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import styles from './App.module.css';
 import './App.css';
 import DeploymentForm from './components/DeploymentForm';
 import HpaForm from './components/HpaForm';
@@ -35,9 +34,11 @@ const initialFormData: FormData = {
 function App() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
-  const handleUpdate = (key: keyof FormData) => (data: object | string) => {
-    setFormData({ ...formData, [key]: data });
-  };
+  const handleUpdate =
+    <T extends keyof FormData>(key: T) =>
+    (data: FormData[T]) => {
+      setFormData({ ...formData, [key]: data });
+    };
 
   const generateYaml = () => {
     let yaml = '';
@@ -53,10 +54,8 @@ function App() {
   };
 
   return (
-    <div
-      className={`vh-100 d-flex justify-content-center align-items-center ${styles.appBackground}`}
-    >
-      <Container className={`bg-dark p-3 ${styles.container}`}>
+    <div className={`vh-100 d-flex justify-content-center align-items-center appBackground`}>
+      <Container className={`bg-dark p-3 container`}>
         <h1 className="text-white mb-4">K8s YAML Generator</h1>
         <Form>
           <DeploymentForm onUpdate={handleUpdate('deployment')} />
