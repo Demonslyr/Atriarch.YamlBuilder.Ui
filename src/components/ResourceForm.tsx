@@ -1,50 +1,134 @@
-// components/DeploymentForm/ResourceForm.tsx
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { Form, Row, Col, Button } from 'react-bootstrap';
 
-import { useState } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+interface Resources {
+  requests?: ResourceObject;
+  limits?: ResourceObject;
+}
 
-const ResourceForm = ({ onResourceChange, title, resource = {} }: any) => {
-  const [cpu, setCpu] = useState(resource.cpu || '');
-  const [memory, setMemory] = useState(resource.memory || '');
+interface ResourceObject {
+  cpu?: string;
+  memory?: string;
+}
 
-  const handleResourceChange = () => {
-    onResourceChange({ cpu, memory });
+interface Units {
+  requests?: ResourceUnits;
+  limits?: ResourceUnits;
+}
+
+interface ResourceUnits {
+  cpu?: string;
+  memory?: string;
+}
+
+interface ResourceFormProps {
+  onResourcesUpdate: (resources: Resources) => void;
+  currentResources: Resources;
+}
+
+const ResourceForm: React.FC<ResourceFormProps> = ({ onResourcesUpdate, currentResources }) => {
+  const [resources, setResources] = useState<Resources>(currentResources);
+  const [units, setUnits] = useState<Units>({});
+
+  useEffect(() => {
+    setResources(currentResources);
+  }, [currentResources]);
+
+  const cpuUnits = ['m'];
+  const memoryUnits = ['Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei'];
+
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    resourceType: keyof Resources,
+    resource: keyof ResourceObject
+  ) => {
+    const value = e.target.value;
+    setResources(prevState => ({
+      ...prevState,
+      [resourceType]: {
+        ...prevState[resourceType],
+        [resource]: value + (units[resourceType]?.[resource] || ''),
+      },
+    }));
+  };
+
+  const handleUnitChange = (
+    e: ChangeEvent<HTMLSelectElement>,
+    resourceType: keyof Resources,
+    resource: keyof ResourceObject
+  ) => {
+    const unit = e.target.value;
+    setUnits(prevState => ({
+      ...prevState,
+      [resourceType]: {
+        ...prevState[resourceType],
+        [resource]: unit,
+      },
+    }));
+    setResources(prevState => {
+      const currentValue = prevState[resourceType]?.[resource]?.replace(/[^\d.]/g, '') as
+        | string
+        | undefined;
+      return {
+        ...prevState,
+        [resourceType]: {
+          ...prevState[resourceType],
+          [resource]: currentValue ? currentValue + unit : unit,
+        },
+      };
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onResourcesUpdate(resources);
   };
 
   return (
-    <>
-      <h5>{title}</h5>
-      <Row>
-        <Col>
-          <Form.Group controlId={`${title}Cpu`}>
-            <Form.Label>CPU (in millicores)</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="CPU"
-              value={cpu}
-              onChange={e => {
-                setCpu(e.target.value);
-                handleResourceChange();
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group controlId={`${title}Memory`}>
-            <Form.Label>Memory (in MiB)</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Memory"
-              value={memory}
-              onChange={e => {
-                setMemory(e.target.value);
-                handleResourceChange();
-              }}
-            />
-          </Form.Group>
-        </Col>
-      </Row>
-    </>
+    <Form onSubmit={handleSubmit}>
+      {(['requests', 'limits'] as const).map(resourceType => (
+        <Row key={resourceType} className="mb-3">
+          <Col>
+            <h5>{resourceType.charAt(0).toUpperCase() + resourceType.slice(1)}</h5>
+          </Col>
+          {(['cpu', 'memory'] as const).map(resource => (
+            <Col key={resource}>
+              <Form.Group controlId={`${resourceType}.${resource}`}>
+                <Form.Label>{resource.toUpperCase()}</Form.Label>
+                <Form.Control
+                  type="number"
+                  min="0"
+                  placeholder="Enter value"
+                  value={resources[resourceType]?.[resource]?.replace(/[^\d.]/g, '') || ''}
+                  onChange={e =>
+                    handleInputChange(
+                      e as React.ChangeEvent<HTMLInputElement>,
+                      resourceType,
+                      resource
+                    )
+                  }
+                />
+                <Form.Select
+                  className="mt-2"
+                  value={units[resourceType]?.[resource] || ''}
+                  onChange={e => handleUnitChange(e, resourceType, resource)}
+                >
+                  <option value="">Select unit</option>
+                  {(resource === 'cpu' ? cpuUnits : memoryUnits).map(unit => (
+                    <option key={unit} value={unit}>
+                      {unit}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          ))}
+        </Row>
+      ))}
+      <Button variant="primary" type="submit">
+        Update Resources
+      </Button>
+    </Form>
   );
 };
 

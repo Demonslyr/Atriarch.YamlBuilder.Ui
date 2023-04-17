@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
-import EnvVarForm from './EnvVarForm';
+import EnvVarCreator from './EnvVarForm';
 import ResourceForm from './ResourceForm';
 import ProbeForm from './ProbeForm';
 import Volumes from './VolumeForm';
@@ -98,14 +98,15 @@ const DeploymentForm: React.FC<Props> = ({ onUpdate }) => {
           </Form.Group>
         </Row>
 
-        <EnvVarForm
-          envVars={deployment.envVars}
-          onUpdate={(updatedEnvVars: EnvVar[]) => handleDeploymentChange('envVars', updatedEnvVars)}
+        <EnvVarCreator
+          onEnvVarListChange={(updatedEnvVars: EnvVar[]) =>
+            handleDeploymentChange('envVars', updatedEnvVars)
+          }
         />
 
         <ResourceForm
-          resources={deployment.resources}
-          onUpdate={(updatedResources: Resources[]) =>
+          currentResources={deployment.resources}
+          onResourcesUpdate={(updatedResources: Resources) =>
             handleDeploymentChange('resources', updatedResources)
           }
         />
