@@ -35,7 +35,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ACTIONS_PAT }}
           base: release
           branch: ${{ env.NEW_BRANCH_NAME }}  # Use 'branch' instead of 'head'
           title: "Merge ${{ env.NEW_BRANCH_NAME }} into Release"
