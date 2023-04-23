@@ -29,15 +29,10 @@ jobs:
           NEW_BRANCH_NAME=release-$(date +'%m-%d-%Y')-prod-${UUID}
           echo "NEW_BRANCH_NAME=$NEW_BRANCH_NAME" >> $GITHUB_ENV
           git fetch
-          git branch
-          git checkout ${{ github.event.inputs.commit_sha }}
-          git branch
+          git checkout $github.event.inputs.commit_sha
           git pull
-          git branch
-          git checkout -b $NEW_BRANCH_NAME
-          git branch
+          git checkout -b $NEW_BRANCH_NAME main
           git push -u origin $NEW_BRANCH_NAME
-          git branch
 
       - name: Create Pull Request
         if: success()
