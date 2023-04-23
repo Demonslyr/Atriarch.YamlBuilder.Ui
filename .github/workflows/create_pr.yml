@@ -14,7 +14,9 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.commit_sha }}
 
       - name: Setup Git and Create Branch
         env:
@@ -24,7 +26,7 @@ jobs:
           git config --global user.email "action@github.com"
           NEW_BRANCH_NAME=release-$(date +'%m-%d-%Y')-prod
           echo "NEW_BRANCH_NAME=$NEW_BRANCH_NAME" >> $GITHUB_ENV
-          git checkout -b $NEW_BRANCH_NAME ${{ github.event.inputs.commit_sha }}
+          git checkout -b $NEW_BRANCH_NAME
 
       - name: Push new branch
         run: git push origin ${{ env.NEW_BRANCH_NAME }}
