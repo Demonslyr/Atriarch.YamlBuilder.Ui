@@ -25,7 +25,8 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          NEW_BRANCH_NAME=release-$(date +'%m-%d-%Y')-prod
+          UUID=$(uuidgen | cut -c-8)  # Generate a short UUID (first 8 characters)
+          NEW_BRANCH_NAME=release-$(date +'%m-%d-%Y')-prod-${UUID}
           echo "NEW_BRANCH_NAME=$NEW_BRANCH_NAME" >> $GITHUB_ENV
           git checkout -b $NEW_BRANCH_NAME
 
