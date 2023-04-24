@@ -28,10 +28,7 @@ jobs:
           UUID=$(uuidgen | cut -c-8)  # Generate a short UUID (first 8 characters)
           NEW_BRANCH_NAME=release-$(date +'%m-%d-%Y')-prod-${UUID}
           echo "NEW_BRANCH_NAME=$NEW_BRANCH_NAME" >> $GITHUB_ENV
-          git fetch
-          git checkout ${{github.event.inputs.commit_sha}}
-          git pull
-          git checkout -b $NEW_BRANCH_NAME main
+          git checkout -b $NEW_BRANCH_NAME
           git push -u origin $NEW_BRANCH_NAME
 
 
