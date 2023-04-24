@@ -2,6 +2,8 @@
 
 K8s YAML Generator is a React application that simplifies the process of creating Kubernetes configuration YAML files. It provides a user-friendly interface that guides developers through creating various Kubernetes resources, including deployments, services, horizontal pod autoscalers, ingresses, config maps, and secrets.
 
+This project used ai in it's generation.
+
 ## Project Structure
 
 The project is organized as follows:
